@@ -15,7 +15,7 @@ def main(file):
             num_s = False
             upp_s = False
             low_s = False
-            for i in range (13):
+            for i in range (12):
                 tmp = data.read(1)[0]
                 if not (isascii(tmp)):
                     suspect = False
@@ -26,21 +26,23 @@ def main(file):
                     upp_s = True
                 if not (isnotlowercase(tmp)):
                     low_s = True
+            if not suspect:
+                data.seek(pin)
+                continue
             strMark = ""
-            if (num_s and (low_s or upp_s) and suspect):
+            if (num_s and (low_s or upp_s)):
                 strMark = " Marked"
                 totalmarked += 1
-            if (suspect):
-                data.seek(pin)
-                print("Destination " + str(pin) + " " + cstr(b'' + data.read(13)) + strMark)
-                totalsuspects += 1
+            data.seek(pin)
+            print("Destination " + str(pin) + " " + cstr(b'' + data.read(13)) + strMark)
+            totalsuspects += 1
             data.seek(pin)
     print("Complete! Totaly " + str(totalsuspects) + " suspects and " + str(totalmarked) + " marked as highly suspicious.")
 
 def cstr(s):
     p = "{}s".format(len(s))
     s = struct.unpack(p,s)[0]
-    return str(s.replace(b"\x00",b""),encoding = "sjis",errors = "ignore")
+    return str(s.replace(b"\x00",b""),encoding = "ascii",errors = "ignore")
     
 def isascii(s):
     if(s>=48 and s<=57 or s>=64 and s<=90 or s>=97 and s<=122):
