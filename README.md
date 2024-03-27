@@ -15,3 +15,5 @@ Switch平台的Kaleido ADV Workshop引擎的游戏的密钥存储在exefs/main�
   
 很遗憾，此段代码在针对 _ANONYMOUS;CODE(ENG)_ 测试时无法找到密钥，因为密钥的最后一位字符似乎与后续数据重合而变成了数字、字母以外的字符。幸好该密钥和Steam版相同才得以定位这个问题。代码修改为了只寻找连续的12个字符，但输出时仍尝试输出13个字符。  
 现在以 _ANONYMOUS;CODE(JP)_ 为例，最终可提取出71个可能符合规则的字符串，并优先标记了其中的8个。  
+  
+2024.3.27 [FreeMote#124](https://github.com/UlyssesWu/FreeMote/issues/124) 现在密钥中可能出现标点符号。  
